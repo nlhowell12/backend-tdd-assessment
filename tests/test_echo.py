@@ -40,10 +40,18 @@ class TestEcho(unittest.TestCase):
             echo.create_parser().parse_args(['hello', '--title']).title)
 
     def test_all(self):
-        test1 = subprocess.Popen(
+        test = subprocess.Popen(
             ["python", "./echo.py", "-utl", 'hello'],
-            stdout=subprocess.PIPE).communicate()[0].split()
-        self.assertEqual(test1, ["HELLO", "Hello", "hello"])
+            stdout=subprocess.PIPE).communicate()
+        self.assertEqual(test, ["HELLO", "Hello", "hello"])
+
+    def test_none(self):
+        process = subprocess.Popen(
+            ["python", "./echo.py", 'hello'],
+            stdout=subprocess.PIPE)
+        stdout, _ = process.communicate()
+        print stdout
+        self.assertEqual(stdout.split()[0], 'hello')
 
 
 if __name__ == '__main__':

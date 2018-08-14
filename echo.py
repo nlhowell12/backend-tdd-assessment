@@ -31,20 +31,22 @@ def create_parser():
 
 
 def convert(argument, text):
-    if argument == 't':
+    if argument == 't' or argument == 'title':
         return title(text)
-    elif argument == 'u':
+    elif argument == 'u' or argument == 'upper':
         return upper(text)
-    elif argument == 'l':
+    elif argument == 'l' or argument == 'lower':
         return lower(text)
 
 
 parser = create_parser().parse_args()
 
-for i in sys.argv:
-    if i[0] == '-':
-        string = list(i[1:])
-        for i in string:
+if parser.title or parser.lower or parser.upper:
+    for i in sys.argv:
+        if i[0] == '-' and i[1] is not '-':
+            string = list(i[1:])
             print convert(i, parser.text)
+        elif i[0:2] == "--":
+            string = i[2:]
+            print convert(string, parser.text)
 
-           
