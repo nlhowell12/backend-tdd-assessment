@@ -43,7 +43,7 @@ class TestEcho(unittest.TestCase):
         test = subprocess.Popen(
             ["python", "./echo.py", "-utl", 'hello'],
             stdout=subprocess.PIPE).communicate()
-        self.assertEqual(test[0].split(), ["HELLO", "Hello", "hello"])
+        self.assertEqual(test[0].split(), ["hello"])
 
     def test_none(self):
         process = subprocess.Popen(
